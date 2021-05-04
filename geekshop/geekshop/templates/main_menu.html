@@ -1,0 +1,12 @@
+<div class="header clearfix">
+    <a href="/" class="logo"></a>
+    <ul class="menu">
+        {% url 'index' as index_url %}
+        <li><a href="{{ index_url }}" {% if request.path == index_url %} class="active" {% endif %}>домой</a></li>
+        {% url 'mainapp:index' as product_url %}
+        <li><a href="{{ product_url }}" {% if request.path == product_url %} class="active" {% endif %}>продукты</a></li>
+        {% url 'contacts' as contacts_url %}
+        <li><a href="{{ contacts_url }}" {% if request.path == contacts_url %} class="active" {% endif %}>контакты</a></li>
+    </ul>
+    <a href="#" class="search"></a>
+</div>
