@@ -1,0 +1,26 @@
+<div class="header clearfix">
+    <a href="/" class="logo"></a>
+    <ul class="menu">
+        {% url 'index' as index_url %}
+        <li><a href="{{ index_url }}" {% if request.path == index_url %} class="active" {% endif %}>домой</a></li>
+        {% url 'mainapp:index' as product_url %}
+        <li><a href="{{ product_url }}" {% if request.path == product_url %} class="active" {% endif %}>продукты</a></li>
+        {% url 'contacts' as contacts_url %}
+        <li><a href="{{ contacts_url }}" {% if request.path == contacts_url %} class="active" {% endif %}>контакты</a></li>
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'authapp:edit' %}">
+                    {{ user.first_name|default:'Пользователь' }}
+                </a>
+            </li>
+        {% endif %}
+        <li>
+            {% if user.is_authenticated %}
+            <a href="{% url 'authapp:logout' %}">Выйти</a>
+            {% else %}
+            <a href="{% url 'authapp:login' %}">Войти</a>
+            {% endif %}
+        </li>
+    </ul>
+    <a href="#" class="search"></a>
+</div>
