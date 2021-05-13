@@ -1,0 +1,41 @@
+{% extends 'main_layout.html' %}
+{% load my_tags %}
+{% load static %}
+
+{% block content %}
+<div class="hero-white">
+    {% include 'main_menu.html' %}
+</div>
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <div class="col-5 m-auto">
+                    <table class="table table-striped align-middle">
+                    <thead>
+                    <tr>
+                        <th class="text-center" scope="col" style="width: 10%">#</th>
+                        <th scope="col">Продукт</th>
+                        <th scope="col">Цена</th>
+                        <th nowrap scope="col" style="width: 10%" class="text-center">Кол-во</th>
+                        <th scope="col">Сумма</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in basket_list %}
+                        <tr>
+                            <td class="text-center">{{ forloop.counter }}</td>
+                            <td>{{ item.product }}</td>
+                            <td>{{ item.product.price|floatformat:"-2" }}</td>
+                            <td class="text-center">{{ item.quantity }}</td>
+                            <td>{{ item.product.price|mult:item.quantity|floatformat:"-2" }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                    Всего товаров: {{ basket.count }} шт.<br>
+                    На общую сумму: {{ basket.price|floatformat:"-2" }} руб.
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -16,7 +16,7 @@ html, body {
 	height: 384px;
 }
 
-.container {
+.cont {
 	width: 1366px;
 	margin: 0 auto;
 	min-height: 100%;
@@ -83,11 +83,13 @@ html, body {
 .basket {
 	display: block;
 	width: 23px;
-	height: 23px;	
-	background-image: url(img/basket.png);
+	height: 23px;
 	position: absolute;
 	top: 63px;
 	left: 1210px;
+	color: #212121;
+	text-decoration: none;
+    padding: 3px;
 }
 
 .clearfix:after {
@@ -543,7 +545,7 @@ html, body {
 
 .footer {
 	height: 384px;
-	width: 1169px;
+	width: 1366px;
 	background-color: #f7f7f7;
 	padding-left: 99px;
 	padding-right: 98px;
