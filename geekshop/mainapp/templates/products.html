@@ -7,7 +7,7 @@
 </div>
 <div class="details">
     {% include 'categories.html' %}
-    <div class="details-products">
+    <div class="details-products mb-2">
         <div class="details-slider">
             <div class="slider-product">
                 <img src="/media/{{ product.image }}">
@@ -45,6 +45,8 @@
         </div>
     </div>
 
-    {% include 'related.html' %}
+    {% if related %}
+        {% include 'related.html' %}
+    {% endif %}
 </div>
 {% endblock %}

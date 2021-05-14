@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from basketapp.models import get_basket
+from basketapp.models import Basket
 from mainapp.models import Product
 
 
@@ -8,7 +8,7 @@ def main(request):
     context = {
         'title': 'Магазин',
         'products': products,
-        'basket': get_basket(user=request.user)
+        'basket_items': get_basket(request.user)
     }
     return render(request, 'index.html', context=context)
 
@@ -16,6 +16,12 @@ def main(request):
 def contact(request):
     context = {
         'title': 'Контакты',
-        'basket': get_basket(user=request.user)
+        'basket_items': get_basket(request.user)
     }
     return render(request, 'contact.html', context=context)
+
+
+def get_basket(user):
+    if user.is_authenticated:
+        return Basket.objects.filter(user=user)
+    return []

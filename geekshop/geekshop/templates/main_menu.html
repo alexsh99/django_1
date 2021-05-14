@@ -25,7 +25,7 @@
         </li>
     </ul>
     {% if user.is_authenticated %}
-    <a href="{% url 'basket:list' %}" class="basket fa fa-shopping-basket">{{ basket.count }} шт.  {{ basket.price|floatformat:"-2" }} руб. </a>
+    <a href="{% url 'basket:list' %}" class="basket fa fa-shopping-basket">{{ basket_items.0.total_quantity }} шт.  {{ basket_items.0.total_cost|floatformat:"-2" }} руб. </a>
     {% endif %}
     <a href="#" class="search"></a>
 </div>

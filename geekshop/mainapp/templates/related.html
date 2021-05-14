@@ -6,32 +6,16 @@
         <a class="explore" href="#">показать все <img src="{% static 'img/arrow.png' %}" alt=""></a>
     </div>
     <div class="related-products clearfix">
+        {% for item in related %}
         <div class="block">
-            <a href="#"><img src="{% static 'img/product-11.jpg' %}" alt="">
+            <a href="{% url 'mainapp:product' item.id %}"><img src="/media/{{ item.image }}" alt="">
                 <div class="text">
                     <img src="{% static 'img/icon-hover.png' %}" alt="img">
-                    <h4>Стул повышенного качества</h4>
-                    <p>Не оторваться. </p>
+                    <h4>{{ item.name }}</h4>
+                    <p>{{ item.short_desc }}</p>
                 </div>
             </a>
         </div>
-        <div class="block">
-            <a href="#"><img src="{% static 'img/product-21.jpg' %}" alt="">
-                <div class="text">
-                    <img src="{% static 'img/icon-hover.png' %}" alt="img">
-                    <h4>Стул повышенного качества</h4>
-                    <p>Не оторваться. </p>
-                </div>
-            </a>
-        </div>
-        <div class="block">
-            <a href="#"><img src="{% static 'img/product-31.jpg' %}" alt="">
-                <div class="text">
-                    <img src="{% static 'img/icon-hover.png' %}" alt="img">
-                    <h4>Стул повышенного качества</h4>
-                    <p>Не оторваться. </p>
-                </div>
-            </a>
-        </div>
+        {% endfor %}
     </div>
 </div>

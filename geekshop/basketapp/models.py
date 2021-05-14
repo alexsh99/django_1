@@ -1,20 +1,6 @@
 from django.db import models
 from geekshop import settings
 from mainapp.models import Product
-from authapp.models import ShopUser
-
-
-def get_basket(user: ShopUser):
-    result = {
-        'count': 0,
-        'price': 0,
-    }
-    if user.is_authenticated:
-        basket = Basket.objects.filter(user=user)
-        for item in basket:
-            result["price"] += item.product.price * item.quantity
-            result["count"] += item.quantity
-    return result
 
 
 class Basket(models.Model):
@@ -22,3 +8,19 @@ class Basket(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name='количество', default=0)
     add_datetime = models.DateTimeField(verbose_name='время', auto_now_add=True)
+
+    @property
+    def product_cost(self):
+        return self.product.price * self.quantity
+
+    @property
+    def total_quantity(self):
+        _items = Basket.objects.filter(user=self.user)
+        _total_quantity = sum(list(map(lambda x: x.quantity, _items)))
+        return _total_quantity
+
+    @property
+    def total_cost(self):
+        _items = Basket.objects.filter(user=self.user)
+        _total_cost = sum(list(map(lambda x: x.product_cost, _items)))
+        return _total_cost
