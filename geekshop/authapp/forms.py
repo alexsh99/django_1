@@ -17,7 +17,7 @@ class ShopUserLoginForm(AuthenticationForm):
 class ShopUserRegisterForm(UserCreationForm):
     class Meta:
         model = ShopUser
-        fields = ('username', 'first_name', 'password1', 'password2', 'email', 'age', 'avatar')
+        fields = ('username', 'first_name', 'last_name', 'password1', 'password2', 'email', 'age', 'avatar')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,12 +35,12 @@ class ShopUserRegisterForm(UserCreationForm):
 class ShopUserEditForm(UserChangeForm):
     class Meta:
         model = ShopUser
-        fields = ('username', 'first_name', 'email', 'age', 'avatar', 'password')
+        fields = ('username', 'first_name', 'last_name', 'email', 'age', 'avatar', 'is_staff')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'form-control form-control-sm'
             field.help_text = ''
             if field_name == 'password':
                 field.widget = forms.HiddenInput()

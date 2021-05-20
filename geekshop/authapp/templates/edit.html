@@ -5,7 +5,7 @@
 <div class="col-6 mx-auto mt-5 shadow">
     <div class="row">
         <div class="col-4">
-            <img src="/media/{{ user.avatar }}" class="rounded-circle" alt="Avatar">
+            <img src="/media/{{ user.avatar }}" class="img-thumbnail rounded-circle" alt="Avatar">
         </div>
         <div class="col">
             <form action="{% url 'authapp:edit' %}" method="post" enctype="multipart/form-data">

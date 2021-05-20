@@ -37,8 +37,8 @@ def edit(request):
             return HttpResponseRedirect(reverse('authapp:edit'))
     else:
         edit_form = ShopUserEditForm(instance=request.user)
-    content = {'title': title, 'edit_form': edit_form}
-    return render(request, 'edit.html', context=content)
+    context = {'title': title, 'edit_form': edit_form}
+    return render(request, 'edit.html', context=context)
 
 
 def register(request):
