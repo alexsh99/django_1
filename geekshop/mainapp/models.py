@@ -30,6 +30,7 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
+    objects = None
     category = models.ForeignKey(
         ProductCategory,
         on_delete=models.SET_NULL,
@@ -63,6 +64,9 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField(
         verbose_name='количество на складе',
         default=0
+    )
+    is_active = models.BooleanField(
+        default=True,
     )
 
     def __str__(self):

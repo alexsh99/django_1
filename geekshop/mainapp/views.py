@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from basketapp.models import Basket
 from .models import ProductCategory
 from .models import Product
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def get_basket(user):
@@ -21,20 +22,29 @@ def get_related(select_product):
 
 
 @login_required
-def products(request, index=None):
-    if index is not None:
+def products(request, index=None, page=1):
+    if index is not None and index != 0:
         category = get_object_or_404(ProductCategory, id=index)
-        products = Product.objects.filter(category_id=index).order_by('price')
+        products_list = Product.objects.filter(category_id=index, is_active=True).order_by('price')
     else:
-        products = Product.objects.all().order_by('price')
+        products_list = Product.objects.all().order_by('price')
         category = {'name': 'все', 'id': 0}
+
+    paginator = Paginator(products_list, 4)
+
+    try:
+        paginator_page = paginator.page(page)
+    except PageNotAnInteger:
+        paginator_page = paginator.page(1)
+    except EmptyPage:
+        paginator_page = paginator.page(paginator.num_pages)
 
     categories = ProductCategory.objects.all()
     context = {
         'title': 'Каталог',
         'categories': categories,
         'category': category,
-        'products': products,
+        'products': paginator_page,
         'basket_items': get_basket(request.user),
     }
     return render(request, 'products_list.html', context=context)
